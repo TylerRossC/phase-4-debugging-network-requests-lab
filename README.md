@@ -63,11 +63,31 @@ developing your own process.
 - Add a new toy when the toy form is submitted
 
   - How I debugged:
+    - Tried to submit form via frontend
+    - Recieved error `POST http://localhost:4000/toys 500 (Internal Server Error)`
+    - For internal server error, we looked at our server log to determine what went wrong
+    - Saw this in terminal: 
+        NameError (uninitialized constant ToysController::Toys):
+      
+        app/controllers/toys_controller.rb:10:in `create'
 
 - Update the number of likes for a toy
 
   - How I debugged:
+    - Tried to update likes via frontend
+    - Recieved error `SyntaxError: Unexpected end of JSON input at ToyCard.js:21`
+    - Checked fetch request, which was fine.
+    - Checked controller action to make sure it was rendering
+    - No render existed. Added render and problem was solved
 
 - Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
+    - Tried to donate toy via frontend
+    - Recieved error `DELETE http://localhost:4000/toys/2 404 (Not Found)`
+    - Server log returned:
+      Started DELETE "/toys/2" for 127.0.0.1 at 2021-08-02 11:35:19 -0700
+  
+      ActionController::RoutingError (No route matches [DELETE] "/toys/2"):
+    - Looked at routes and found that no route existed
+    - Added 'destroy' route and problem was solved
